@@ -4,37 +4,42 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const skills = [
-  ['HTML', 10],
-  ['CSS', 7],
-  ['JavScript', 9],
-  ['React, 8']
+//Country data
+const countries = [
+  { name: 'Finland', city: 'Helsinki' },
+  { name: 'Sweden', city: 'Stockholm' },
+  { name: 'Denmark', city: 'Copenhagen' },
+  { name: 'Nowrway', city: 'Oslo' },
+  { name: 'Iceland', city: 'Reykjavik' },
 ]
 
-const Skill = ({ skill: [tech, level ]}) => (
-  <li>
-    {tech} {level}
-  </li>
-)
-
-const Skills = ({skills}) => {
-  const skillsList = skills.map((skill) => <Skill skill={skill}/>)
-  return <ul>{skillsList}</ul>
-}
-
-const AppMain = () => {
-
+//React component country. Takes in an object and returns a small listing based on
+//the name and city given
+const Country = ({ country : {name, city } }) => {
   return (
-    <div className='container'>
-      <div>
-        <h1>Skills level</h1>
-        <ul>
-          <Skills skills={skills}/>
-        </ul>
-      </div>
+    <div>
+      <h1>{name}</h1>
+      <small>{city}</small>
     </div>
   )
 }
+
+// Reach component that takes in a list of country data and maps each one to an
+// individual Country component
+const Countries = ({ countries }) => {
+  const countryList = countries.map((country) => <Country country={country}/>)
+  return <div>{countryList}</div>
+}
+
+const AppMain = () => (
+  <div className='contaier'>
+    <div>
+      <h1>Countries List</h1>
+      <Countries countries={countries}/>
+    </div>
+  </div>
+)
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
