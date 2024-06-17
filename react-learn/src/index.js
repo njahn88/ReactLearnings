@@ -19,13 +19,13 @@ const date = 'June 16, 2024'
 const Header = (props) => (
   <header>
     <div className='header-wrapper'>
-      <h1>{props.welcome}</h1>
-      <h2>{props.title}</h2>
-      <h3>{props.subtitle}</h3>
+      <h1>{props.data.welcome}</h1>
+      <h2>{props.data.title}</h2>
+      <h3>{props.data.subtitle}</h3>
       <p>
-        Instructor: {props.firstName} {props.lastName}
+        Instructor: {props.data.firstName} {props.data.lastName}
       </p>
-      <small>Date: {props.date}</small>
+      <small>Date: {props.data.date}</small>
     </div>
   </header>
 )
@@ -54,15 +54,19 @@ const AppMain = () => {
   const age = currentYear - birthYear
   let status = age >= 18
 
+  const data = {
+    welcome: 'Welcome to the page',
+    tilte: 'Getting started with React',
+    subtitle: 'JavaScript Library',
+    firstName: 'Nathan',
+    lastName: 'Jahn',
+    date: 'June 17 2024'
+  }
+
   return (
       <div className='app'>
         <Header 
-          welcome={welcome}
-          title={title}
-          subtitle={subtitle}
-          firstName={firstName}
-          lastName={lastName}
-          date={date}
+          data={data}
         />
         <Status status={status}/>
         <Skills skills={['HTML', 'CSS', 'JavaScript']}/>
