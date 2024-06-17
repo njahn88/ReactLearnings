@@ -15,20 +15,54 @@ const author = {
 }
 const date = 'June 16, 2024'
 
-// React componet, allows for easy resuse of created html
-const Header = () => (
+// Using props, allows for injecting variables into the created componets
+const Header = (props) => (
   <header>
     <div className='header-wrapper'>
-      <h1>{welcome}</h1>
-      <h2>{title}</h2>
-      <h3>{subtitle}</h3>
+      <h1>{props.welcome}</h1>
+      <h2>{props.title}</h2>
+      <h3>{props.subtitle}</h3>
       <p>
-        Instructor: {author.firstName} {author.lastName}
+        Instructor: {props.firstName} {props.lastName}
       </p>
-      <small>Date: {date}</small>
+      <small>Date: {props.date}</small>
     </div>
   </header>
 )
+
+const Status = (props) => {
+  let status = props.status ? 'Old enough to drive' : 'Not old enough to drive'
+  return <p>{status}</p>
+}
+
+//Can use all different kinds of variables for dynamic pages
+const AppMain = () => {
+  const welcome = 'Welcome to the page'
+  const title = 'Getting started with Reach'
+  const subtitle = 'JavaScript Library'
+  const firstName = 'Nathan'
+  const lastName = 'Jahn'
+  const date = 'June 17, 2024'
+
+  let currentYear = 2024
+  let birthYear = 2000
+  const age = currentYear - birthYear
+  let status = age >= 18
+
+  return (
+      <div className='app'>
+        <Header 
+          welcome={welcome}
+          title={title}
+          subtitle={subtitle}
+          firstName={firstName}
+          lastName={lastName}
+          date={date}
+        />
+        <Status status={status}/>
+      </div>
+  )
+} 
 
 const numOne = 3
 const numTwo = 2
@@ -83,16 +117,6 @@ const buttonStyles = {
   borderRadius: 5,
 }
 const Button = () => <button style={buttonStyles}>action</button>
-
-const AppMain = () => (
-  <div>
-    {<Header />}
-    {<Button/>}
-    {<Main />}
-    {<Footer />}
-
-  </div>
-)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
