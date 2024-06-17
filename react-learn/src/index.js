@@ -4,20 +4,32 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const Numbers = ({ numbers }) => {
-  const list = numbers.map((number) => <li>{number}</li>)
-  return list
+const skills = [
+  ['HTML', 10],
+  ['CSS', 7],
+  ['JavScript', 9],
+  ['React, 8']
+]
+
+const Skill = ({ skill: [tech, level ]}) => (
+  <li>
+    {tech} {level}
+  </li>
+)
+
+const Skills = ({skills}) => {
+  const skillsList = skills.map((skill) => <Skill skill={skill}/>)
+  return <ul>{skillsList}</ul>
 }
 
 const AppMain = () => {
-  const numbers = [1, 2, 3, 4, 5]
 
   return (
     <div className='container'>
       <div>
-        <h1>Numbers List</h1>
+        <h1>Skills level</h1>
         <ul>
-          <Numbers numbers={numbers}/>
+          <Skills skills={skills}/>
         </ul>
       </div>
     </div>
