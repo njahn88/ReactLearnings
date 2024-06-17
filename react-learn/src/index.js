@@ -5,128 +5,141 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 //Reach allows for easy creation of reusable HTML using JavaScript
+const showDate = (time) => {
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ]
 
-const welcome = 'Welcome to the page'
-const title = 'Getting started with React'
-const subtitle = 'JavaScript Library'
-const author = {
-  firstName: 'Nathan',
-  lastName: 'Jahn',
-}
-const date = 'June 16, 2024'
-
-// Using props, allows for injecting variables into the created componets
-const Header = (props) => (
-  <header>
-    <div className='header-wrapper'>
-      <h1>{props.data.welcome}</h1>
-      <h2>{props.data.title}</h2>
-      <h3>{props.data.subtitle}</h3>
-      <p>
-        Instructor: {props.data.firstName} {props.data.lastName}
-      </p>
-      <small>Date: {props.data.date}</small>
-    </div>
-  </header>
-)
-
-const Status = (props) => {
-  let status = props.status ? 'Old enough to drive' : 'Not old enough to drive'
-  return <p>{status}</p>
+  const month = months[time.getMonth()].slice(0, 3)
+  const year = time.getFullYear()
+  const date = time.getDate()
+  return ` ${month} ${date} ${year}`
 }
 
-const Skills = (props) => {
-  const skillList = props.skills.map((skill) => <li>{skill}</li>)
-  return <ul>{skillList}</ul>
-}
-
-//Can use all different kinds of variables for dynamic pages
-const AppMain = () => {
-  const welcome = 'Welcome to the page'
-  const title = 'Getting started with Reach'
-  const subtitle = 'JavaScript Library'
-  const firstName = 'Nathan'
-  const lastName = 'Jahn'
-  const date = 'June 17, 2024'
-
-  let currentYear = 2024
-  let birthYear = 2000
-  const age = currentYear - birthYear
-  let status = age >= 18
-
-  const data = {
-    welcome: 'Welcome to the page',
-    tilte: 'Getting started with React',
-    subtitle: 'JavaScript Library',
-    firstName: 'Nathan',
-    lastName: 'Jahn',
-    date: 'June 17 2024'
-  }
-
+const Header = ({
+  data: {
+    welcome,
+    title,
+    subtitle,
+    autoher: {firstName, lastName},
+    date,
+  },
+}) => {
   return (
-      <div className='app'>
-        <Header 
-          data={data}
-        />
-        <Status status={status}/>
-        <Skills skills={['HTML', 'CSS', 'JavaScript']}/>
+    <header>
+      <div className='header-wrapper'>
+        <h1>{welcome}</h1>
+        <h2>{title}</h2>
+        <h3>{subtitle}</h3>
+        <p>
+          {firstName} {lastName}
+        </p>
+        <small>{showDate(date)}</small>
       </div>
+    </header>
   )
-} 
+}
 
-const numOne = 3
-const numTwo = 2
+const TechList = ({ techs }) => {
+  const techList = techs.map((tech) => <li key={tech}>{tech}</li>)
+  return techList
+}
 
-const result = (
-  <p>
-    {numOne} + {numTwo} = {numOne + numTwo}
-  </p>
+const UserCard = ({ user: { firstName, lastName, image }}) => (
+  <div className='user-card'>
+    <img src={image} alt={firstName}></img>
+    <h2>
+      {firstName}
+      {lastName}
+    </h2>
+  </div>
 )
 
-const yearBorn = 2000
-const currentYear = new Date().getFullYear()
-const age = currentYear - yearBorn
-const personAge = (
-  <p>
-    {' '}
-    {author.firstName} {author.lastName} is {age} years old
-  </p>
+const Button = ({ text, onClick, style}) => (
+  <button style={style} onClick={onClick}>{text}</button>
 )
 
-const techs = ['HTML', 'CSS', 'JavaScript']
-const techsFormatted = techs.map((tech) => <li>{tech}</li>)
+const buttonStyles = {
+  backGroundColor: '#61dbfb',
+  padding: 10,
+  border: 'none',
+  borderRadius: 5,
+  margin: 3,
+  cursor: 'pointer',
+  fontSize: 18,
+  color: 'white',
+}
 
-const Main = () => (
+const Main = ({ user, techs, greetPeople, handleTime }) => (
   <main>
     <div className='main-wrapper'>
-      <p>Prerequisite to getting started with {' '}
-        <strong>
-          <em>react.js</em>
-        </strong>
-      </p>
-      <ul>{techsFormatted}</ul>
-      {result}
-      {personAge}
+      <p>Prerequisite to get started with React</p>
+      <ul>
+        <TechList techs={techs}/>
+      </ul>
+      <UserCard user={user}/>
+      <Button text='Greet People' onClick={greetPeople} style={buttonStyles}/>
+      <Button text='Show Time' onClick={handleTime} style={buttonStyles}/>
     </div>
   </main>
 )
 
-const copyRight = 'Copyright 2024'
-const Footer = () => (
+const Footer = ({copyRight}) => (
   <footer>
     <div className='footer-wrapper'>
-      <p>{copyRight}</p>
+      <p>Copyright {copyRight.getFullYear()}</p>
     </div>
   </footer>
 )
 
-const buttonStyles = {
-  padding: '10px 20px',
-  color: 'rbg(0, 255, 0)',
-  border: 'none',
-  borderRadius: 5,
+const AppMain = () => {
+  const data = {
+    walcome: 'Welcome to the page',
+    title: 'Getting started with react',
+    subtitle: 'Javascript Library',
+    author: {
+      firstName: 'Nathan',
+      lastName: 'Jahn',
+    },
+    date: new Date()
+  }
+
+  const date = new Date()
+  const techs = ['HTML', 'CSS', 'JavaScript']
+  const user = { ...data.author, image: 'not a url'}
+
+  const greetPeople = () => {
+    alert('Welcome to 30 days of react challenge, 2024')
+  }
+
+  const handleTime = () => {
+    alert(showDate(new Date()))
+  }
+
+  return (
+    <div className='app'>
+      <Header data={data}/>
+      <Main 
+        user={user}
+        techs={techs}
+        handleTime={handleTime}
+        greetPeople={greetPeople}
+      />
+      <Footer copyRight={date}/>  
+    </div>
+  )
 }
-const Button = () => <button style={buttonStyles}>action</button>
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
