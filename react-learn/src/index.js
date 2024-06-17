@@ -15,8 +15,8 @@ const author = {
 }
 const date = 'June 16, 2024'
 
-
-const header = (
+// React componet, allows for easy resuse of created html
+const Header = () => (
   <header>
     <div className='header-wrapper'>
       <h1>{welcome}</h1>
@@ -39,7 +39,6 @@ const result = (
   </p>
 )
 
-// Creating variables can allow you to insert them using {}
 const yearBorn = 2000
 const currentYear = new Date().getFullYear()
 const age = currentYear - yearBorn
@@ -53,9 +52,7 @@ const personAge = (
 const techs = ['HTML', 'CSS', 'JavaScript']
 const techsFormatted = techs.map((tech) => <li>{tech}</li>)
 
-// Using className="?" allows you to pull from the header style if
-// desired
-const main = (
+const Main = () => (
   <main>
     <div className='main-wrapper'>
       <p>Prerequisite to getting started with {' '}
@@ -71,7 +68,7 @@ const main = (
 )
 
 const copyRight = 'Copyright 2024'
-const footer = (
+const Footer = () => (
   <footer>
     <div className='footer-wrapper'>
       <p>{copyRight}</p>
@@ -79,16 +76,27 @@ const footer = (
   </footer>
 )
 
-const app = (
+const buttonStyles = {
+  padding: '10px 20px',
+  color: 'rbg(0, 255, 0)',
+  border: 'none',
+  borderRadius: 5,
+}
+const Button = () => <button style={buttonStyles}>action</button>
+
+const AppMain = () => (
   <div>
-    {header}
-    {main}
-    {footer}
+    {<Header />}
+    {<Button/>}
+    {<Main />}
+    {<Footer />}
+
   </div>
 )
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  app
+  <AppMain />
 );
 
 
