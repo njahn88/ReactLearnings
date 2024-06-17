@@ -35,6 +35,11 @@ const Status = (props) => {
   return <p>{status}</p>
 }
 
+const Skills = (props) => {
+  const skillList = props.skills.map((skill) => <li>{skill}</li>)
+  return <ul>{skillList}</ul>
+}
+
 //Can use all different kinds of variables for dynamic pages
 const AppMain = () => {
   const welcome = 'Welcome to the page'
@@ -60,6 +65,7 @@ const AppMain = () => {
           date={date}
         />
         <Status status={status}/>
+        <Skills skills={['HTML', 'CSS', 'JavaScript']}/>
       </div>
   )
 } 
