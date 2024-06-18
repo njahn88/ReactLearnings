@@ -24,6 +24,65 @@ class Header extends React.Component {
   }
 }
 
+class TechList extends React.Component {
+  constructor(props){
+    super(props)
+  }
+  render() {
+    const techs = ['HTML', 'CSS', 'JavaScript']
+    const techsFomatted = techs.map((tech) => <li key={tech}>{tech}</li>)
+    return techsFomatted
+  }
+}
+
+class Main extends React.Component {
+  constructor(props){
+    super(props)
+  }
+  render(){
+    return (
+      <main>
+        <div className='main-wrapper'>
+            <p>Prerequisite to getting started with react.js</p>
+            <ul>
+              <TechList />
+            </ul>
+        </div>
+      </main>
+    )
+  }
+}
+
+class Footer extends React.Component {
+  constructor(props){
+    super(props)
+  }
+  render() {
+    return (
+      <footer>
+        <div className='footer-wrapper'>
+            <p>Copyright 2024</p>
+        </div>
+      </footer>
+    )
+  }
+}
+
+class AppMain extends React.Component {
+    constructor(props){
+      super(props)
+    }
+    render() {
+      return (
+        <div className='app'>
+          <Header />
+          <Main />
+          <Footer />
+        </div>
+      )
+    }
+}
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <AppMain />
