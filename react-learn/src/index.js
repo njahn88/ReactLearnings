@@ -6,6 +6,9 @@ import reportWebVitals from './reportWebVitals';
 
 //Class components in react extend from React.Component. They use the built in render method 
 class Header extends React.Component {
+  constructor(props) {
+    super(props)
+  }
   render() {
     return (
       <header>
