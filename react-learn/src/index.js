@@ -4,43 +4,50 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-//Country data
-const countries = [
-  { name: 'Finland', city: 'Helsinki' },
-  { name: 'Sweden', city: 'Stockholm' },
-  { name: 'Denmark', city: 'Copenhagen' },
-  { name: 'Nowrway', city: 'Oslo' },
-  { name: 'Iceland', city: 'Reykjavik' },
-]
+//Class components in react extend from React.Component. They use the built in render method 
+class Header extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    const {
+      welcome,
+      title,
+      subtitle,
+      author: { firstName, lastName },
+      date,
+    } = this.props.data
+    return (
+      <header>
+        <div className='header-wrapper'>
+            <h1>{welcome}</h1>
+            <h2>{title}</h2>
+            <h3>{subtitle}</h3>
+            <p>{firstName} {lastName}</p>
+            <small>{date}</small>
+        </div>
+      </header>
+    )
+  }
+}
 
-//React component country. Takes in an object and returns a small listing based on
-//the name and city given
-const Country = ({ country : {name, city } }) => {
+const AppMain = () => {
+  const data = {
+    welcome: 'Welcome to the page',
+    title: 'Getting started with React',
+    subtitle: 'JavaScript Library',
+    author: {
+      firstName: 'Nathan',
+      lastName: 'Jahn',
+    },
+    date: 'June 18, 2024'
+  }
   return (
-    <div>
-      <h1>{name}</h1>
-      <small>{city}</small>
+    <div className='app'>
+      <Header data={data}/>
     </div>
   )
 }
-
-// Reach component that takes in a list of country data and maps each one to an
-// individual Country component
-const Countries = ({ countries }) => {
-  //maps each country structure to a React Country component
-  const countryList = countries.map((country) => <Country country={country}/>)
-  return <div>{countryList}</div>
-}
-
-const AppMain = () => (
-  <div className='contaier'>
-    <div>
-      <h1>Countries List</h1>
-      <Countries countries={countries}/>
-    </div>
-  </div>
-)
-
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
