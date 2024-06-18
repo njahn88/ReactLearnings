@@ -27,6 +27,7 @@ const Country = ({ country : {name, city } }) => {
 // Reach component that takes in a list of country data and maps each one to an
 // individual Country component
 const Countries = ({ countries }) => {
+  //maps each country structure to a React Country component
   const countryList = countries.map((country) => <Country country={country}/>)
   return <div>{countryList}</div>
 }
